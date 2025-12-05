@@ -1,0 +1,53 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+  push:
+    branches: [ main, "cursor/**" ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: '8.2'
+        
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew || true
+      working-directory: ${{ github.workspace }}
+      
+    - name: Create Gradle Wrapper if missing
+      run: |
+        if [ ! -f "./gradlew" ]; then
+          gradle wrapper --gradle-version 8.2
+          chmod +x ./gradlew
+        fi
+      working-directory: ${{ github.workspace }}
+      
+    - name: Build APK
+      run: ./gradlew assembleDebug --no-daemon
+      working-directory: ${{ github.workspace }}
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: interval-bell-app
+        path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
