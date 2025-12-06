@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="primary">#FF6200EE</color>
-    <color name="primary_dark">#FF3700B3</color>
-    <color name="accent">#FF03DAC5</color>
+    <!-- Primary palette - Deep indigo/violet for calm, mindful aesthetic -->
+    <color name="primary">#5C6BC0</color>
+    <color name="primary_dark">#3949AB</color>
+    <color name="primary_light">#7986CB</color>
+    <color name="primary_variant">#303F9F</color>
+    
+    <!-- Secondary palette - Warm amber/gold for the bell accent -->
+    <color name="secondary">#FFB74D</color>
+    <color name="secondary_dark">#FF9800</color>
+    <color name="secondary_light">#FFE0B2</color>
+    
+    <!-- Accent colors -->
+    <color name="accent">#FF7043</color>
+    <color name="accent_soft">#FFAB91</color>
+    
+    <!-- Background colors -->
+    <color name="background_start">#1A1A2E</color>
+    <color name="background_end">#16213E</color>
+    <color name="surface">#1F2544</color>
+    <color name="surface_elevated">#2D3561</color>
+    <color name="card_background">#252B4A</color>
+    
+    <!-- Text colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B8C5D6</color>
+    <color name="text_hint">#7889A7</color>
+    
+    <!-- Timer colors -->
+    <color name="timer_glow">#7C4DFF</color>
+    <color name="timer_progress">#B388FF</color>
+    <color name="timer_background">#3D3D6B</color>
+    
+    <!-- Button colors -->
+    <color name="button_start_start">#00C853</color>
+    <color name="button_start_end">#00E676</color>
+    <color name="button_stop_start">#FF5252</color>
+    <color name="button_stop_end">#FF8A80</color>
+    <color name="button_disabled">#4A4A6A</color>
+    
+    <!-- Status colors -->
+    <color name="bell_ringing">#FFD54F</color>
+    <color name="success">#69F0AE</color>
+    <color name="error">#FF5252</color>
+    
+    <!-- Misc -->
+    <color name="divider">#3D4773</color>
+    <color name="ripple">#33FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

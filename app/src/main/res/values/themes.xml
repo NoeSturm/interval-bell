@@ -1,8 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.IntervalBell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.IntervalBell" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand colors -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <!-- Secondary brand colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <!-- Background and surface colors -->
+        <item name="android:colorBackground">@color/background_start</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_elevated</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/background_start</item>
+        <item name="android:navigationBarColor">@color/background_start</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Text appearance -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        
+        <!-- Other -->
         <item name="colorAccent">@color/accent</item>
+        <item name="colorError">@color/error</item>
+    </style>
+
+    <!-- Custom text input style -->
+    <style name="IntervalBell.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/primary_light</item>
+        <item name="hintTextColor">@color/text_secondary</item>
+        <item name="boxBackgroundColor">@color/surface</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+    </style>
+
+    <!-- Timer text style -->
+    <style name="IntervalBell.TimerText">
+        <item name="android:textSize">72sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <!-- Title style -->
+    <style name="IntervalBell.Title">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- Subtitle style -->
+    <style name="IntervalBell.Subtitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <!-- Section header style -->
+    <style name="IntervalBell.SectionHeader">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>
