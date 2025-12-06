@@ -15,4 +15,5 @@
     <color name="time_display_active">#FF6200EE</color>
     <color name="time_display_inactive">#9E9E9E</color>
     <color name="time_label">#757575</color>
+    <color name="recording_active">#FFE53935</color>
 </resources>

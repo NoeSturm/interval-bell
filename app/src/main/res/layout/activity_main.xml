@@ -295,6 +295,63 @@
 
         </LinearLayout>
 
+        <!-- Recording Section (visible when Custom Recording is selected) -->
+        <LinearLayout
+            android:id="@+id/recordingLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="12dp"
+            android:background="@drawable/recording_background"
+            app:layout_constraintTop_toBottomOf="@id/soundSelectionLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/recordingStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_recording"
+                android:textSize="14sp"
+                android:textColor="@color/time_label"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/recordButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/record_button"
+                    android:textSize="14sp"
+                    app:icon="@android:drawable/ic_btn_speak_now"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="@color/accent"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteRecordingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_recording_button"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:cornerRadius="8dp"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <!-- Timer Display (shown when running) -->
         <TextView
             android:id="@+id/timerText"
@@ -305,7 +362,7 @@
             android:textStyle="bold"
             android:textColor="@color/primary"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/soundSelectionLayout"
+            app:layout_constraintTop_toBottomOf="@id/recordingLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp" />

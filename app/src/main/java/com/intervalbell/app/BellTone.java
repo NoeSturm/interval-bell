@@ -8,6 +8,20 @@ import android.media.ToneGenerator;
  * Each tone has a display name resource ID and a method to play its sound.
  */
 public enum BellTone {
+    // Custom Recording (must be first for easy access)
+    CUSTOM_RECORDING(R.string.tone_custom_recording, "🎙️") {
+        @Override
+        public void play(ToneGenerator toneGen) {
+            // Custom recording playback is handled separately via AudioRecorder
+            // This method is not used for custom recordings
+        }
+
+        @Override
+        public boolean isCustomRecording() {
+            return true;
+        }
+    },
+
     // Classic/Traditional Tones
     CLASSIC_BELL(R.string.tone_classic_bell, "🔔") {
         @Override
@@ -196,6 +210,14 @@ public enum BellTone {
      * @param toneGen The ToneGenerator instance to use for playback
      */
     public abstract void play(ToneGenerator toneGen);
+
+    /**
+     * Check if this is the custom recording option.
+     * @return true if this is a custom recording
+     */
+    public boolean isCustomRecording() {
+        return false;
+    }
 
     /**
      * Get the display name for this tone including the emoji.

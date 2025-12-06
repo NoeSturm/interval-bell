@@ -1,5 +1,7 @@
 package com.intervalbell.app;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -14,9 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private boolean isRunning = false;
     private ToneGenerator toneGen;
+    
+    // Recording UI elements
+    private LinearLayout recordingLayout;
+    private TextView recordingStatusText;
+    private Button recordButton;
+    private Button deleteRecordingButton;
+    
+    // Audio recorder for custom recordings
+    private AudioRecorder audioRecorder;
+    
+    // Permission request launcher
+    private ActivityResultLauncher<String> requestPermissionLauncher;
     
     // Selected bell tone
     private BellTone selectedTone = BellTone.CLASSIC_BELL;
@@ -64,15 +81,30 @@ public class MainActivity extends AppCompatActivity {
         stopButton = findViewById(R.id.stopButton);
         timerText = findViewById(R.id.timerText);
         statusText = findViewById(R.id.statusText);
+        
+        // Initialize recording views
+        recordingLayout = findViewById(R.id.recordingLayout);
+        recordingStatusText = findViewById(R.id.recordingStatusText);
+        recordButton = findViewById(R.id.recordButton);
+        deleteRecordingButton = findViewById(R.id.deleteRecordingButton);
 
         // Create a tone generator for the "alarm" stream at 100% volume
         toneGen = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        
+        // Initialize audio recorder
+        audioRecorder = new AudioRecorder(this);
+        
+        // Setup permission request launcher
+        setupPermissionLauncher();
 
         // Setup numeric keypad buttons
         setupNumericKeypad();
         
         // Setup sound spinner with bell tones
         setupSoundSpinner();
+        
+        // Setup recording buttons
+        setupRecordingButtons();
 
         // Preview button click listener
         previewButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize display
         updateTimeDisplay();
+        
+        // Update recording status on startup
+        updateRecordingStatus();
     }
 
     private void setupSoundSpinner() {
@@ -141,11 +176,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedTone = tones[position];
+                // Show/hide recording layout based on selection
+                if (selectedTone.isCustomRecording()) {
+                    recordingLayout.setVisibility(View.VISIBLE);
+                    updateRecordingStatus();
+                } else {
+                    recordingLayout.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedTone = BellTone.CLASSIC_BELL;
+                recordingLayout.setVisibility(View.GONE);
             }
         });
     }
@@ -271,6 +314,21 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a time interval", Toast.LENGTH_SHORT).show();
             return;
         }
+        
+        // Check if using custom recording and validate minimum interval
+        long minimumInterval = getMinimumIntervalSeconds();
+        if (minimumInterval > 0 && intervalSeconds < minimumInterval) {
+            Toast.makeText(this, 
+                getString(R.string.interval_too_short, (int) minimumInterval), 
+                Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        // If custom recording is selected but no recording exists, show error
+        if (selectedTone.isCustomRecording() && !audioRecorder.hasRecording()) {
+            Toast.makeText(this, R.string.no_recording, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         isRunning = true;
         startButton.setEnabled(false);
@@ -281,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
         numericKeypad.setVisibility(View.GONE);
         timerText.setVisibility(View.VISIBLE);
         soundSelectionLayout.setVisibility(View.GONE);
+        recordingLayout.setVisibility(View.GONE);
 
         startTimer(intervalSeconds);
     }
@@ -328,17 +387,185 @@ public class MainActivity extends AppCompatActivity {
         numericKeypad.setVisibility(View.VISIBLE);
         timerText.setVisibility(View.GONE);
         soundSelectionLayout.setVisibility(View.VISIBLE);
+        
+        // Show recording layout if custom recording is selected
+        if (selectedTone.isCustomRecording()) {
+            recordingLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void playSelectedTone() {
         try {
             // Show bell ringing status
             statusText.setVisibility(View.VISIBLE);
-            // Play the selected tone
-            selectedTone.play(toneGen);
+            
+            // Handle custom recording playback
+            if (selectedTone.isCustomRecording()) {
+                if (audioRecorder.hasRecording()) {
+                    audioRecorder.playRecordingForBell();
+                }
+            } else {
+                // Play the selected tone
+                selectedTone.play(toneGen);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private void setupPermissionLauncher() {
+        requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    // Permission granted, start recording
+                    startRecording();
+                } else {
+                    // Permission denied
+                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show();
+                }
+            }
+        );
+    }
+    
+    private void setupRecordingButtons() {
+        recordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (audioRecorder.isRecording()) {
+                    stopRecording();
+                } else {
+                    checkPermissionAndRecord();
+                }
+            }
+        });
+        
+        deleteRecordingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteRecording();
+            }
+        });
+    }
+    
+    private void checkPermissionAndRecord() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission already granted
+            startRecording();
+        } else {
+            // Request permission
+            requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+        }
+    }
+    
+    private void startRecording() {
+        audioRecorder.startRecording(new AudioRecorder.RecordingCallback() {
+            @Override
+            public void onRecordingStarted() {
+                runOnUiThread(() -> {
+                    recordButton.setText(R.string.stop_recording_button);
+                    recordButton.setBackgroundTintList(
+                        ContextCompat.getColorStateList(MainActivity.this, R.color.recording_active));
+                    recordingStatusText.setText(R.string.recording_in_progress);
+                    recordingStatusText.setTextColor(
+                        ContextCompat.getColor(MainActivity.this, R.color.recording_active));
+                    deleteRecordingButton.setVisibility(View.GONE);
+                });
+            }
+
+            @Override
+            public void onRecordingStopped(long durationMs) {
+                // Not used here, handled in stopRecording
+            }
+
+            @Override
+            public void onRecordingError(String error) {
+                runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this, 
+                        getString(R.string.recording_error, error), Toast.LENGTH_SHORT).show();
+                    updateRecordingStatus();
+                });
+            }
+
+            @Override
+            public void onPlaybackStarted() {}
+
+            @Override
+            public void onPlaybackCompleted() {}
+
+            @Override
+            public void onPlaybackError(String error) {}
+        });
+    }
+    
+    private void stopRecording() {
+        audioRecorder.stopRecording(new AudioRecorder.RecordingCallback() {
+            @Override
+            public void onRecordingStarted() {}
+
+            @Override
+            public void onRecordingStopped(long durationMs) {
+                runOnUiThread(() -> {
+                    updateRecordingStatus();
+                    long durationSec = (durationMs + 999) / 1000;
+                    Toast.makeText(MainActivity.this,
+                        getString(R.string.recording_saved, (int) durationSec), Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onRecordingError(String error) {
+                runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this,
+                        getString(R.string.recording_error, error), Toast.LENGTH_SHORT).show();
+                    updateRecordingStatus();
+                });
+            }
+
+            @Override
+            public void onPlaybackStarted() {}
+
+            @Override
+            public void onPlaybackCompleted() {}
+
+            @Override
+            public void onPlaybackError(String error) {}
+        });
+    }
+    
+    private void deleteRecording() {
+        audioRecorder.deleteRecording();
+        updateRecordingStatus();
+        Toast.makeText(this, R.string.recording_deleted, Toast.LENGTH_SHORT).show();
+    }
+    
+    private void updateRecordingStatus() {
+        recordButton.setText(R.string.record_button);
+        recordButton.setBackgroundTintList(
+            ContextCompat.getColorStateList(this, R.color.accent));
+        recordingStatusText.setTextColor(
+            ContextCompat.getColor(this, R.color.time_label));
+        
+        if (audioRecorder.hasRecording()) {
+            long durationSec = audioRecorder.getRecordingDurationSeconds();
+            recordingStatusText.setText(getString(R.string.recording_saved, (int) durationSec));
+            deleteRecordingButton.setVisibility(View.VISIBLE);
+        } else {
+            recordingStatusText.setText(R.string.no_recording);
+            deleteRecordingButton.setVisibility(View.GONE);
+        }
+    }
+    
+    /**
+     * Gets the minimum interval required based on the recording length.
+     * @return Minimum interval in seconds, or 0 if no recording or not using custom recording
+     */
+    private long getMinimumIntervalSeconds() {
+        if (selectedTone.isCustomRecording() && audioRecorder.hasRecording()) {
+            return audioRecorder.getRecordingDurationSeconds();
+        }
+        return 0;
     }
     
     @Override
@@ -346,6 +573,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (toneGen != null) {
             toneGen.release();
+        }
+        if (audioRecorder != null) {
+            audioRecorder.release();
         }
     }
 }
