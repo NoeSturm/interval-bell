@@ -1,17 +1,14 @@
 package com.intervalbell.app;
 
-import android.media.AudioManager;
-import android.media.ToneGenerator;
-
 /**
  * Enum representing different bell tones available in the app.
- * Each tone has a display name resource ID and a method to play its sound.
+ * Each tone has a display name resource ID and uses high-quality synthesized audio.
  */
 public enum BellTone {
     // Custom Recording (must be first for easy access)
-    CUSTOM_RECORDING(R.string.tone_custom_recording, "🎙️") {
+    CUSTOM_RECORDING(R.string.tone_custom_recording, "🎙️", null) {
         @Override
-        public void play(ToneGenerator toneGen) {
+        public void play(ToneSynthesizer synth) {
             // Custom recording playback is handled separately via AudioRecorder
             // This method is not used for custom recordings
         }
@@ -22,179 +19,43 @@ public enum BellTone {
         }
     },
 
-    // Classic/Traditional Tones
-    CLASSIC_BELL(R.string.tone_classic_bell, "🔔") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 500);
-        }
-    },
-    CHURCH_BELL(R.string.tone_church_bell, "⛪") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            // Deep resonant tone
-            toneGen.startTone(ToneGenerator.TONE_CDMA_LOW_L, 800);
-        }
-    },
-    TEMPLE_BELL(R.string.tone_temple_bell, "🛕") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_MED_L, 600);
-        }
-    },
-    CHIME(R.string.tone_chime, "🎐") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_HIGH_L, 400);
-        }
-    },
-    GRANDFATHER_CLOCK(R.string.tone_grandfather_clock, "🕰️") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_LOW_PBX_L, 1000);
-        }
-    },
+    // Meditation & Wellness
+    ZEN_BOWL(R.string.tone_zen_bowl, "🧘", ToneSynthesizer.ToneType.ZEN_BOWL),
+    CRYSTAL_CHIME(R.string.tone_crystal_chime, "💎", ToneSynthesizer.ToneType.CRYSTAL_CHIME),
+    TIBETAN_BOWL(R.string.tone_tibetan_bowl, "🔔", ToneSynthesizer.ToneType.TIBETAN_BOWL),
+    TEMPLE_GONG(R.string.tone_temple_gong, "🛕", ToneSynthesizer.ToneType.TEMPLE_GONG),
+    MINDFUL_BELL(R.string.tone_mindful_bell, "🪷", ToneSynthesizer.ToneType.MINDFUL_BELL),
 
-    // Digital/Modern Tones
-    DIGITAL_BEEP(R.string.tone_digital_beep, "📟") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 300);
-        }
-    },
-    NOTIFICATION(R.string.tone_notification, "📱") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_PROP_ACK, 200);
-        }
-    },
-    ALARM(R.string.tone_alarm, "⏰") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_EMERGENCY_RINGBACK, 500);
-        }
-    },
-    SCI_FI_ALERT(R.string.tone_sci_fi_alert, "🚀") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_NETWORK_LITE, 400);
-        }
-    },
-    RADAR_PING(R.string.tone_radar_ping, "📡") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_NETWORK_USA_RINGBACK, 300);
-        }
-    },
+    // Modern & Digital
+    SOFT_PULSE(R.string.tone_soft_pulse, "💫", ToneSynthesizer.ToneType.SOFT_PULSE),
+    AMBIENT_WAVE(R.string.tone_ambient_wave, "🌊", ToneSynthesizer.ToneType.AMBIENT_WAVE),
+    DIGITAL_CHIME(R.string.tone_digital_chime, "✨", ToneSynthesizer.ToneType.DIGITAL_CHIME),
+    AURORA(R.string.tone_aurora, "🌌", ToneSynthesizer.ToneType.AURORA),
 
-    // Musical Tones
-    PIANO_CHORD(R.string.tone_piano_chord, "🎹") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 400);
-        }
-    },
-    XYLOPHONE(R.string.tone_xylophone, "🎵") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_HIGH_PBX_L, 350);
-        }
-    },
-    HARP(R.string.tone_harp, "🎶") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_MED_PBX_L, 500);
-        }
-    },
-    MUSIC_BOX(R.string.tone_music_box, "🎁") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_HIGH_SS, 400);
-        }
-    },
+    // Musical
+    MARIMBA(R.string.tone_marimba, "🎵", ToneSynthesizer.ToneType.MARIMBA),
+    VIBRAPHONE(R.string.tone_vibraphone, "🎶", ToneSynthesizer.ToneType.VIBRAPHONE),
+    KALIMBA(R.string.tone_kalimba, "🎹", ToneSynthesizer.ToneType.KALIMBA),
+    WIND_CHIMES(R.string.tone_wind_chimes, "🎐", ToneSynthesizer.ToneType.WIND_CHIMES),
 
-    // Nature Tones
-    BIRD_CHIRP(R.string.tone_bird_chirp, "🐦") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE, 300);
-        }
-    },
-    WATER_DROP(R.string.tone_water_drop, "💧") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_PROP_PROMPT, 200);
-        }
-    },
+    // Nature-Inspired
+    WATER_DROPLET(R.string.tone_water_droplet, "💧", ToneSynthesizer.ToneType.WATER_DROPLET),
+    BAMBOO_KNOCK(R.string.tone_bamboo_knock, "🎋", ToneSynthesizer.ToneType.BAMBOO_KNOCK),
+    RAIN_STICK(R.string.tone_rain_stick, "🌧️", ToneSynthesizer.ToneType.RAIN_STICK),
 
-    // Funny/Fun Tones
-    DUCK_QUACK(R.string.tone_duck_quack, "🦆") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 250);
-        }
-    },
-    ROBOT_BEEP(R.string.tone_robot_beep, "🤖") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_CALLDROP_LITE, 400);
-        }
-    },
-    DOORBELL(R.string.tone_doorbell, "🚪") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_NORMAL, 600);
-        }
-    },
-    GAME_OVER(R.string.tone_game_over, "🎮") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_SOFT_ERROR_LITE, 500);
-        }
-    },
-    CELEBRATION(R.string.tone_celebration, "🎉") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_INCALL_LITE, 400);
-        }
-    },
-    SPACESHIP(R.string.tone_spaceship, "🛸") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_CONFIRM, 350);
-        }
-    },
-    SUBMARINE(R.string.tone_submarine, "🚢") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_SUP_ERROR, 500);
-        }
-    },
-    MAGIC_WAND(R.string.tone_magic_wand, "✨") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_NETWORK_BUSY_ONE_SHOT, 300);
-        }
-    },
-    COW_BELL(R.string.tone_cow_bell, "🐄") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ONE_MIN_BEEP, 400);
-        }
-    },
-    BOXING_BELL(R.string.tone_boxing_bell, "🥊") {
-        @Override
-        public void play(ToneGenerator toneGen) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 500);
-        }
-    };
+    // Notification
+    GENTLE_ALERT(R.string.tone_gentle_alert, "🔉", ToneSynthesizer.ToneType.GENTLE_ALERT),
+    SUCCESS_TONE(R.string.tone_success, "✅", ToneSynthesizer.ToneType.SUCCESS_TONE),
+    SOFT_GONG(R.string.tone_soft_gong, "🥁", ToneSynthesizer.ToneType.SOFT_GONG);
 
     private final int nameResId;
     private final String emoji;
+    private final ToneSynthesizer.ToneType toneType;
 
-    BellTone(int nameResId, String emoji) {
+    BellTone(int nameResId, String emoji, ToneSynthesizer.ToneType toneType) {
         this.nameResId = nameResId;
         this.emoji = emoji;
+        this.toneType = toneType;
     }
 
     public int getNameResId() {
@@ -205,11 +66,19 @@ public enum BellTone {
         return emoji;
     }
 
+    public ToneSynthesizer.ToneType getToneType() {
+        return toneType;
+    }
+
     /**
-     * Play the bell tone sound.
-     * @param toneGen The ToneGenerator instance to use for playback
+     * Play the bell tone sound using the synthesizer.
+     * @param synth The ToneSynthesizer instance to use for playback
      */
-    public abstract void play(ToneGenerator toneGen);
+    public void play(ToneSynthesizer synth) {
+        if (toneType != null && synth != null) {
+            synth.playTone(toneType);
+        }
+    }
 
     /**
      * Check if this is the custom recording option.

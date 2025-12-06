@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView statusText;
     private CountDownTimer countDownTimer;
     private boolean isRunning = false;
-    private ToneGenerator toneGen;
+    private ToneSynthesizer toneSynth;
     
     // Recording UI elements
     private LinearLayout recordingLayout;
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> requestPermissionLauncher;
     
     // Selected bell tone
-    private BellTone selectedTone = BellTone.CLASSIC_BELL;
+    private BellTone selectedTone = BellTone.ZEN_BOWL;
 
     // Store the entered digits (max 6 digits for HH:MM:SS)
     private StringBuilder enteredDigits = new StringBuilder();
@@ -96,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize timer card
         timerCard = findViewById(R.id.timerCard);
 
-        // Create a tone generator for the "alarm" stream at 100% volume
-        toneGen = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        // Create synthesizer for high-quality tone playback
+        toneSynth = new ToneSynthesizer();
         
         // Initialize audio recorder
         audioRecorder = new AudioRecorder(this);
@@ -178,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         soundSpinner.setAdapter(adapter);
+        
+        // Default to first non-custom tone (ZEN_BOWL at index 1)
+        soundSpinner.setSelection(1);
 
         // Handle selection changes
         soundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -195,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedTone = BellTone.CLASSIC_BELL;
+                selectedTone = BellTone.ZEN_BOWL;
                 recordingCard.setVisibility(View.GONE);
             }
         });
@@ -415,8 +416,8 @@ public class MainActivity extends AppCompatActivity {
                     audioRecorder.playRecordingForBell();
                 }
             } else {
-                // Play the selected tone
-                selectedTone.play(toneGen);
+                // Play the selected synthesized tone
+                selectedTone.play(toneSynth);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -581,8 +582,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (toneGen != null) {
-            toneGen.release();
+        if (toneSynth != null) {
+            toneSynth.release();
         }
         if (audioRecorder != null) {
             audioRecorder.release();
