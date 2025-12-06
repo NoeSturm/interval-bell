@@ -3,6 +3,9 @@ package com.intervalbell.app;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -11,7 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView secondsDisplay;
     private LinearLayout timeDisplayLayout;
     private GridLayout numericKeypad;
+    private LinearLayout soundSelectionLayout;
     private Spinner soundSpinner;
+    private Button previewButton;
     private Button startButton;
     private Button stopButton;
     private TextView timerText;
@@ -28,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private boolean isRunning = false;
     private ToneGenerator toneGen;
+    
+    // Selected bell tone
+    private BellTone selectedTone = BellTone.CLASSIC_BELL;
 
     // Store the entered digits (max 6 digits for HH:MM:SS)
     private StringBuilder enteredDigits = new StringBuilder();
@@ -44,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         secondsDisplay = findViewById(R.id.secondsDisplay);
         timeDisplayLayout = findViewById(R.id.timeDisplayLayout);
         numericKeypad = findViewById(R.id.numericKeypad);
+        soundSelectionLayout = findViewById(R.id.soundSelectionLayout);
         soundSpinner = findViewById(R.id.soundSpinner);
+        previewButton = findViewById(R.id.previewButton);
         startButton = findViewById(R.id.startButton);
         stopButton = findViewById(R.id.stopButton);
         timerText = findViewById(R.id.timerText);
@@ -55,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup numeric keypad buttons
         setupNumericKeypad();
+        
+        // Setup sound spinner with bell tones
+        setupSoundSpinner();
+
+        // Preview button click listener
+        previewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playSelectedTone();
+            }
+        });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +98,56 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize display
         updateTimeDisplay();
+    }
+
+    private void setupSoundSpinner() {
+        // Create list of display names for the spinner
+        final BellTone[] tones = BellTone.values();
+        List<String> toneNames = new ArrayList<>();
+        for (BellTone tone : tones) {
+            toneNames.add(tone.getDisplayName(this));
+        }
+
+        // Create custom adapter with larger text
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                toneNames
+        ) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextSize(16);
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextSize(16);
+                textView.setPadding(32, 24, 32, 24);
+                return view;
+            }
+        };
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        soundSpinner.setAdapter(adapter);
+
+        // Handle selection changes
+        soundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedTone = tones[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedTone = BellTone.CLASSIC_BELL;
+            }
+        });
     }
 
     private void setupNumericKeypad() {
@@ -204,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         timeDisplayLayout.setVisibility(View.GONE);
         numericKeypad.setVisibility(View.GONE);
         timerText.setVisibility(View.VISIBLE);
-        soundSpinner.setEnabled(false);
+        soundSelectionLayout.setVisibility(View.GONE);
 
         startTimer(intervalSeconds);
     }
@@ -228,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                playSound();
+                playSelectedTone();
                 // Restart the timer automatically for the next interval
                 if (isRunning) {
                     startTimer(intervalSeconds);
@@ -251,15 +327,15 @@ public class MainActivity extends AppCompatActivity {
         timeDisplayLayout.setVisibility(View.VISIBLE);
         numericKeypad.setVisibility(View.VISIBLE);
         timerText.setVisibility(View.GONE);
-        soundSpinner.setEnabled(true);
+        soundSelectionLayout.setVisibility(View.VISIBLE);
     }
 
-    private void playSound() {
+    private void playSelectedTone() {
         try {
             // Show bell ringing status
             statusText.setVisibility(View.VISIBLE);
-            // Beep for 500ms for a more noticeable bell sound
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 500); 
+            // Play the selected tone
+            selectedTone.play(toneGen);
         } catch (Exception e) {
             e.printStackTrace();
         }
