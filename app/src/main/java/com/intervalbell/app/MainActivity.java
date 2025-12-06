@@ -46,9 +46,13 @@ public class MainActivity extends AppCompatActivity {
     
     // Recording UI elements
     private LinearLayout recordingLayout;
+    private View recordingCard;
     private TextView recordingStatusText;
     private Button recordButton;
     private Button deleteRecordingButton;
+    
+    // Timer card
+    private View timerCard;
     
     // Audio recorder for custom recordings
     private AudioRecorder audioRecorder;
@@ -84,9 +88,13 @@ public class MainActivity extends AppCompatActivity {
         
         // Initialize recording views
         recordingLayout = findViewById(R.id.recordingLayout);
+        recordingCard = findViewById(R.id.recordingCard);
         recordingStatusText = findViewById(R.id.recordingStatusText);
         recordButton = findViewById(R.id.recordButton);
         deleteRecordingButton = findViewById(R.id.deleteRecordingButton);
+        
+        // Initialize timer card
+        timerCard = findViewById(R.id.timerCard);
 
         // Create a tone generator for the "alarm" stream at 100% volume
         toneGen = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
@@ -178,17 +186,17 @@ public class MainActivity extends AppCompatActivity {
                 selectedTone = tones[position];
                 // Show/hide recording layout based on selection
                 if (selectedTone.isCustomRecording()) {
-                    recordingLayout.setVisibility(View.VISIBLE);
+                    recordingCard.setVisibility(View.VISIBLE);
                     updateRecordingStatus();
                 } else {
-                    recordingLayout.setVisibility(View.GONE);
+                    recordingCard.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedTone = BellTone.CLASSIC_BELL;
-                recordingLayout.setVisibility(View.GONE);
+                recordingCard.setVisibility(View.GONE);
             }
         });
     }
@@ -334,12 +342,13 @@ public class MainActivity extends AppCompatActivity {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
         
-        // Hide keypad and time display, show timer text
-        timeDisplayLayout.setVisibility(View.GONE);
+        // Hide keypad and time display, show timer
+        findViewById(R.id.timeDisplayCard).setVisibility(View.GONE);
         numericKeypad.setVisibility(View.GONE);
+        findViewById(R.id.soundCard).setVisibility(View.GONE);
+        recordingCard.setVisibility(View.GONE);
+        timerCard.setVisibility(View.VISIBLE);
         timerText.setVisibility(View.VISIBLE);
-        soundSelectionLayout.setVisibility(View.GONE);
-        recordingLayout.setVisibility(View.GONE);
 
         startTimer(intervalSeconds);
     }
@@ -383,14 +392,15 @@ public class MainActivity extends AppCompatActivity {
         stopButton.setEnabled(false);
         
         // Show keypad and time display again
-        timeDisplayLayout.setVisibility(View.VISIBLE);
+        findViewById(R.id.timeDisplayCard).setVisibility(View.VISIBLE);
         numericKeypad.setVisibility(View.VISIBLE);
+        findViewById(R.id.soundCard).setVisibility(View.VISIBLE);
+        timerCard.setVisibility(View.GONE);
         timerText.setVisibility(View.GONE);
-        soundSelectionLayout.setVisibility(View.VISIBLE);
         
         // Show recording layout if custom recording is selected
         if (selectedTone.isCustomRecording()) {
-            recordingLayout.setVisibility(View.VISIBLE);
+            recordingCard.setVisibility(View.VISIBLE);
         }
     }
 

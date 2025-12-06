@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Bell body -->
+    <path
+        android:pathData="M12,2C11.172,2 10.5,2.672 10.5,3.5V4.05C7.42,4.53 5,7.215 5,10.5V16L3,18V19H21V18L19,16V10.5C19,7.215 16.58,4.53 13.5,4.05V3.5C13.5,2.672 12.828,2 12,2Z"
+        android:fillColor="@color/accent"/>
+    
+    <!-- Bell clapper/ringer -->
+    <path
+        android:pathData="M12,22C13.1,22 14,21.1 14,20H10C10,21.1 10.9,22 12,22Z"
+        android:fillColor="@color/primary"/>
+    
+    <!-- Shine effect -->
+    <path
+        android:pathData="M8,10C8,8.343 9.343,7 11,7"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:strokeColor="#80FFFFFF"
+        android:strokeLineCap="round"/>
+</vector>
