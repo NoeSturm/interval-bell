@@ -29,46 +29,32 @@
     <string name="delete_recording_button">Delete</string>
     <string name="recording_deleted">Recording deleted</string>
 
-    <!-- Classic/Traditional Tones -->
-    <string name="tone_classic_bell">Classic Bell</string>
-    <string name="tone_church_bell">Church Bell</string>
-    <string name="tone_temple_bell">Temple Bell</string>
-    <string name="tone_chime">Chime</string>
-    <string name="tone_grandfather_clock">Grandfather Clock</string>
+    <!-- Meditation & Wellness Tones -->
+    <string name="tone_zen_bowl">Zen Bowl</string>
+    <string name="tone_crystal_chime">Crystal Chime</string>
+    <string name="tone_tibetan_bowl">Tibetan Bowl</string>
+    <string name="tone_temple_gong">Temple Gong</string>
+    <string name="tone_mindful_bell">Mindful Bell</string>
 
-    <!-- Digital/Modern Tones -->
-    <string name="tone_digital_beep">Digital Beep</string>
-    <string name="tone_notification">Notification</string>
-    <string name="tone_alarm">Alarm</string>
-    <string name="tone_sci_fi_alert">Sci-Fi Alert</string>
-    <string name="tone_radar_ping">Radar Ping</string>
+    <!-- Modern & Digital Tones -->
+    <string name="tone_soft_pulse">Soft Pulse</string>
+    <string name="tone_ambient_wave">Ambient Wave</string>
+    <string name="tone_digital_chime">Digital Chime</string>
+    <string name="tone_aurora">Aurora</string>
 
     <!-- Musical Tones -->
-    <string name="tone_piano_chord">Piano Chord</string>
-    <string name="tone_xylophone">Xylophone</string>
-    <string name="tone_harp">Harp</string>
-    <string name="tone_music_box">Music Box</string>
+    <string name="tone_marimba">Marimba</string>
+    <string name="tone_vibraphone">Vibraphone</string>
+    <string name="tone_kalimba">Kalimba</string>
+    <string name="tone_wind_chimes">Wind Chimes</string>
 
-    <!-- Nature Tones -->
-    <string name="tone_bird_chirp">Bird Chirp</string>
-    <string name="tone_water_drop">Water Drop</string>
+    <!-- Nature-Inspired Tones -->
+    <string name="tone_water_droplet">Water Droplet</string>
+    <string name="tone_bamboo_knock">Bamboo Knock</string>
+    <string name="tone_rain_stick">Rain Stick</string>
 
-    <!-- Funny/Fun Tones -->
-    <string name="tone_duck_quack">Duck Quack</string>
-    <string name="tone_robot_beep">Robot Beep</string>
-    <string name="tone_doorbell">Doorbell</string>
-    <string name="tone_game_over">Game Over</string>
-    <string name="tone_celebration">Celebration</string>
-    <string name="tone_spaceship">Spaceship</string>
-    <string name="tone_submarine">Submarine</string>
-    <string name="tone_magic_wand">Magic Wand</string>
-    <string name="tone_cow_bell">Cow Bell</string>
-    <string name="tone_boxing_bell">Boxing Bell</string>
-
-    <!-- Legacy strings (kept for backward compatibility) -->
-    <string name="classic_bell">Classic Bell</string>
-    <string name="church_bell">Church Bell</string>
-    <string name="alarm_bell">Alarm Bell</string>
-    <string name="chime_bell">Chime Bell</string>
-    <string name="digital_bell">Digital Bell</string>
+    <!-- Notification Tones -->
+    <string name="tone_gentle_alert">Gentle Alert</string>
+    <string name="tone_success">Success</string>
+    <string name="tone_soft_gong">Soft Gong</string>
 </resources>
