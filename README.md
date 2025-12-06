@@ -4,14 +4,19 @@ An Android application that allows users to set a time interval and receive bell
 
 ## Features
 
-- **Customizable Interval**: Set any time interval in seconds
+- **Google Timer-Style Time Input**: Enter time intervals using an intuitive numeric keypad
+  - Digits shift from right to left as you type (just like Google Timer)
+  - Display shows hours, minutes, and seconds (HH:MM:SS format)
+  - "00" button for quick double-zero entry
+  - Backspace button to delete last digit (long press to clear all)
+- **Customizable Interval**: Set any time interval up to 99h 59m 59s
 - **Multiple Bell Sounds**: Choose from 5 different bell tones:
   - Classic Bell
   - Church Bell
   - Alarm Bell
   - Chime Bell
   - Digital Bell
-- **Visual Countdown**: See the time remaining until the next bell
+- **Visual Countdown**: See the time remaining until the next bell (in HH:MM:SS format)
 - **Vibration Feedback**: Haptic feedback when the bell rings
 - **Background Operation**: Timer continues running even when the app is in the background
 
@@ -30,11 +35,16 @@ An Android application that allows users to set a time interval and receive bell
 
 ## Usage
 
-1. Enter the desired interval in seconds (e.g., 60 for 1 minute, 300 for 5 minutes)
+1. Use the numeric keypad to enter your desired time interval:
+   - Tap digits 0-9 to enter time (digits shift left like a calculator)
+   - Use "00" for quick double-zero entry
+   - Use "⌫" to delete the last digit (long press to clear all)
+   - Time displays as **HHh MMm SSs** (e.g., type "130" for 1 minute 30 seconds)
 2. Select a bell sound from the dropdown menu
 3. Tap "Start" to begin the interval timer
-4. The bell will ring at each interval
-5. Tap "Stop" to stop the timer at any time
+4. The countdown displays remaining time in HH:MM:SS format
+5. The bell will ring at each interval and restart automatically
+6. Tap "Stop" to stop the timer at any time
 
 ## Project Structure
 

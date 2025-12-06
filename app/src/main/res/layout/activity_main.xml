@@ -1,113 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
+        android:padding="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/intervalInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/interval_label"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/intervalInput"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:text="60" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/app_name"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
 
-    <TextView
-        android:id="@+id/soundLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_sound"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/intervalInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp" />
+        <!-- Time Display Section -->
+        <LinearLayout
+            android:id="@+id/timeDisplayLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp">
 
-    <Spinner
-        android:id="@+id/soundSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/soundLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+            <!-- Hours -->
+            <TextView
+                android:id="@+id/hoursDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:textColor="@color/time_display_inactive"
+                android:fontFamily="monospace" />
 
-    <TextView
-        android:id="@+id/timerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0s"
-        android:textSize="72sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        app:layout_constraintTop_toBottomOf="@id/soundSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
+            <TextView
+                android:id="@+id/hoursLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hours_label"
+                android:textSize="24sp"
+                android:textColor="@color/time_label"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="12dp" />
 
-    <TextView
-        android:id="@+id/statusText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bell_ringing"
-        android:textSize="24sp"
-        android:textColor="@color/accent"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/timerText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+            <!-- Minutes -->
+            <TextView
+                android:id="@+id/minutesDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:textColor="@color/time_display_inactive"
+                android:fontFamily="monospace" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/startButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/start_button"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/statusText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp"
-        android:minHeight="64dp" />
+            <TextView
+                android:id="@+id/minutesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minutes_label"
+                android:textSize="24sp"
+                android:textColor="@color/time_label"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="12dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/stopButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/stop_button"
-        android:textSize="18sp"
-        android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@id/startButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:minHeight="64dp" />
+            <!-- Seconds -->
+            <TextView
+                android:id="@+id/secondsDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:textColor="@color/time_display_inactive"
+                android:fontFamily="monospace" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/secondsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seconds_label"
+                android:textSize="24sp"
+                android:textColor="@color/time_label"
+                android:layout_marginStart="4dp" />
+
+        </LinearLayout>
+
+        <!-- Numeric Keypad -->
+        <GridLayout
+            android:id="@+id/numericKeypad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="4"
+            android:alignmentMode="alignMargins"
+            android:useDefaultMargins="true"
+            app:layout_constraintTop_toBottomOf="@id/timeDisplayLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp">
+
+            <!-- Row 1: 1, 2, 3 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn1"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="1"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn2"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="2"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn3"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="3"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <!-- Row 2: 4, 5, 6 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn4"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="4"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn5"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="5"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn6"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="6"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <!-- Row 3: 7, 8, 9 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn7"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="7"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn8"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="8"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn9"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="9"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <!-- Row 4: 00, 0, Delete -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn00"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="@string/double_zero"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn0"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="0"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:text="@string/delete_button"
+                android:textSize="24sp"
+                android:textColor="@color/keypad_button_text"
+                app:backgroundTint="@color/keypad_button_bg"
+                app:cornerRadius="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </GridLayout>
+
+        <!-- Sound Selection -->
+        <TextView
+            android:id="@+id/soundLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_sound"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/numericKeypad"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp" />
+
+        <Spinner
+            android:id="@+id/soundSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/soundLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <!-- Timer Display (shown when running) -->
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00h 00m 00s"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/soundSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bell_ringing"
+            android:textSize="24sp"
+            android:textColor="@color/accent"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/timerText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <!-- Control Buttons -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/startButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/start_button"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/statusText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:minHeight="56dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/stopButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_button"
+            android:textSize="18sp"
+            android:enabled="false"
+            app:layout_constraintTop_toBottomOf="@id/startButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:minHeight="56dp" />
+
+        <!-- Hidden input for backward compatibility -->
+        <EditText
+            android:id="@+id/intervalInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
