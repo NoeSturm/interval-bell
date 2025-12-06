@@ -93,6 +93,11 @@
         <item name="elevation">4dp</item>
     </style>
     
+    <!-- Base Text Style -->
+    <style name="TextStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
     <!-- Timer Display Text Style -->
     <style name="TextStyle.Timer">
         <item name="android:textSize">56sp</item>
