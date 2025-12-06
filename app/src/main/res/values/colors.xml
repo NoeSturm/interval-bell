@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modern Primary Colors - Electric Blue Gradient -->
+    <color name="primary">#FF6366F1</color>
+    <color name="primary_dark">#FF4F46E5</color>
+    <color name="primary_light">#FF818CF8</color>
+    <color name="primary_container">#FF312E81</color>
+
+    <!-- Accent Colors - Vibrant Cyan/Teal -->
+    <color name="accent">#FF22D3EE</color>
+    <color name="accent_dark">#FF06B6D4</color>
+    <color name="accent_light">#FF67E8F9</color>
+
+    <!-- Background Colors - Deep Dark Theme -->
+    <color name="background_dark">#FF0F0F23</color>
+    <color name="background_surface">#FF1A1A2E</color>
+    <color name="background_card">#FF16213E</color>
+    <color name="background_elevated">#FF1F2544</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#FF6366F1</color>
+    <color name="gradient_mid">#FF8B5CF6</color>
+    <color name="gradient_end">#FF22D3EE</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFB4B4C4</color>
+    <color name="text_tertiary">#FF6B7280</color>
+    <color name="text_accent">#FF22D3EE</color>
+
+    <!-- Timer Display Colors -->
+    <color name="time_display_active">#FF22D3EE</color>
+    <color name="time_display_inactive">#FF4B5563</color>
+    <color name="time_label">#FF9CA3AF</color>
+
+    <!-- Button Colors -->
+    <color name="button_primary_start">#FF6366F1</color>
+    <color name="button_primary_end">#FF8B5CF6</color>
+    <color name="button_secondary">#FF374151</color>
+    <color name="button_text">#FFFFFFFF</color>
+    
+    <!-- Keypad Colors -->
+    <color name="keypad_button_bg">#FF1F2937</color>
+    <color name="keypad_button_bg_pressed">#FF374151</color>
+    <color name="keypad_button_text">#FFFFFFFF</color>
+    <color name="keypad_button_border">#FF374151</color>
+
+    <!-- Status Colors -->
+    <color name="success">#FF10B981</color>
+    <color name="warning">#FFF59E0B</color>
+    <color name="error">#FFEF4444</color>
+    <color name="recording_active">#FFEF4444</color>
+
+    <!-- Spinner/Dropdown Colors -->
+    <color name="spinner_background">#FF1F2937</color>
+    <color name="spinner_text">#FFFFFFFF</color>
+    <color name="spinner_dropdown_background">#FF16213E</color>
+
+    <!-- Divider and Border -->
+    <color name="divider">#FF374151</color>
+    <color name="border">#FF4B5563</color>
+
+    <!-- Glow Effects -->
+    <color name="glow_primary">#806366F1</color>
+    <color name="glow_accent">#8022D3EE</color>
+
+    <!-- Legacy colors for compatibility -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,13 +72,4 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#FF6200EE</color>
-    <color name="primary_dark">#FF3700B3</color>
-    <color name="accent">#FF03DAC5</color>
-    <color name="keypad_button_bg">#F5F5F5</color>
-    <color name="keypad_button_text">#212121</color>
-    <color name="time_display_active">#FF6200EE</color>
-    <color name="time_display_inactive">#9E9E9E</color>
-    <color name="time_label">#757575</color>
-    <color name="recording_active">#FFE53935</color>
 </resources>

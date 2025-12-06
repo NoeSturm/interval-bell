@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Outer ring -->
+    <path
+        android:pathData="M24,24m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:strokeColor="@color/accent"/>
+    
+    <!-- Inner circle -->
+    <path
+        android:pathData="M24,24m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:strokeColor="@color/primary_light"/>
+    
+    <!-- Hour markers -->
+    <path
+        android:pathData="M24,6L24,9"
+        android:strokeWidth="2"
+        android:strokeColor="@color/text_primary"
+        android:strokeLineCap="round"/>
+    
+    <path
+        android:pathData="M24,39L24,42"
+        android:strokeWidth="2"
+        android:strokeColor="@color/text_primary"
+        android:strokeLineCap="round"/>
+    
+    <path
+        android:pathData="M6,24L9,24"
+        android:strokeWidth="2"
+        android:strokeColor="@color/text_primary"
+        android:strokeLineCap="round"/>
+    
+    <path
+        android:pathData="M39,24L42,24"
+        android:strokeWidth="2"
+        android:strokeColor="@color/text_primary"
+        android:strokeLineCap="round"/>
+    
+    <!-- Center dot -->
+    <path
+        android:pathData="M24,24m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0"
+        android:fillColor="@color/accent"/>
+    
+    <!-- Hour hand -->
+    <path
+        android:pathData="M24,24L24,14"
+        android:strokeWidth="2.5"
+        android:strokeColor="@color/text_primary"
+        android:strokeLineCap="round"/>
+    
+    <!-- Minute hand -->
+    <path
+        android:pathData="M24,24L32,18"
+        android:strokeWidth="2"
+        android:strokeColor="@color/accent"
+        android:strokeLineCap="round"/>
+</vector>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Background Circle with Gradient Effect -->
+    <group>
+        <!-- Outer glow ring -->
+        <path
+            android:pathData="M54,54m-38,0a38,38 0,1 1,76 0a38,38 0,1 1,-76 0"
+            android:fillColor="#1A22D3EE"/>
+        
+        <!-- Main circle background -->
+        <path
+            android:pathData="M54,54m-32,0a32,32 0,1 1,64 0a32,32 0,1 1,-64 0"
+            android:fillColor="#FF6366F1"/>
+        
+        <!-- Inner gradient effect -->
+        <path
+            android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+            android:fillColor="#FF8B5CF6"/>
+        
+        <!-- Timer outer ring -->
+        <path
+            android:pathData="M54,54m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"
+            android:strokeWidth="3"
+            android:fillColor="#00000000"
+            android:strokeColor="#FF22D3EE"/>
+        
+        <!-- Timer tick marks - 12 o'clock -->
+        <path
+            android:pathData="M54,32L54,36"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"/>
+        
+        <!-- Timer tick marks - 3 o'clock -->
+        <path
+            android:pathData="M76,54L72,54"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"/>
+        
+        <!-- Timer tick marks - 6 o'clock -->
+        <path
+            android:pathData="M54,76L54,72"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"/>
+        
+        <!-- Timer tick marks - 9 o'clock -->
+        <path
+            android:pathData="M32,54L36,54"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"/>
+        
+        <!-- Timer center dot -->
+        <path
+            android:pathData="M54,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+            android:fillColor="#FF22D3EE"/>
+        
+        <!-- Timer hour hand -->
+        <path
+            android:pathData="M54,54L54,42"
+            android:strokeWidth="3"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"/>
+        
+        <!-- Timer minute hand -->
+        <path
+            android:pathData="M54,54L66,48"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FF22D3EE"
+            android:strokeLineCap="round"/>
+        
+        <!-- Bell top accent -->
+        <path
+            android:pathData="M48,28L54,24L60,28"
+            android:strokeWidth="2"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000"/>
+    </group>
+</vector>
