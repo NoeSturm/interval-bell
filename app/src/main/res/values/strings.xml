@@ -15,6 +15,20 @@
     <string name="double_zero">00</string>
     <string name="enter_interval_hint">Enter interval time</string>
 
+    <!-- Recording feature strings -->
+    <string name="tone_custom_recording">My Recording</string>
+    <string name="record_button">Record</string>
+    <string name="stop_recording_button">Stop Recording</string>
+    <string name="recording_in_progress">🎙️ Recording…</string>
+    <string name="recording_saved">Recording saved (%1$d seconds)</string>
+    <string name="no_recording">No recording yet. Tap Record to create one.</string>
+    <string name="permission_required">Microphone permission is required to record audio</string>
+    <string name="permission_denied">Permission denied. Please enable microphone in Settings.</string>
+    <string name="recording_error">Recording error: %1$s</string>
+    <string name="interval_too_short">Interval must be at least %1$d seconds (recording length)</string>
+    <string name="delete_recording_button">Delete</string>
+    <string name="recording_deleted">Recording deleted</string>
+
     <!-- Classic/Traditional Tones -->
     <string name="tone_classic_bell">Classic Bell</string>
     <string name="tone_church_bell">Church Bell</string>
