@@ -10,12 +10,12 @@ An Android application that allows users to set a time interval and receive bell
   - "00" button for quick double-zero entry
   - Backspace button to delete last digit (long press to clear all)
 - **Customizable Interval**: Set any time interval up to 99h 59m 59s
-- **Multiple Bell Sounds**: Choose from 5 different bell tones:
-  - Classic Bell
-  - Church Bell
-  - Alarm Bell
-  - Chime Bell
-  - Digital Bell
+- **26 Bell Sounds**: Choose from a wide variety of bell tones with preview functionality:
+  - **Classic/Traditional**: Classic Bell, Church Bell, Temple Bell, Chime, Grandfather Clock
+  - **Digital/Modern**: Digital Beep, Notification, Alarm, Sci-Fi Alert, Radar Ping
+  - **Musical**: Piano Chord, Xylophone, Harp, Music Box
+  - **Nature**: Bird Chirp, Water Drop
+  - **Fun/Funny**: Duck Quack, Robot Beep, Doorbell, Game Over, Celebration, Spaceship, Submarine, Magic Wand, Cow Bell, Boxing Bell
 - **Visual Countdown**: See the time remaining until the next bell (in HH:MM:SS format)
 - **Vibration Feedback**: Haptic feedback when the bell rings
 - **Background Operation**: Timer continues running even when the app is in the background
@@ -40,7 +40,7 @@ An Android application that allows users to set a time interval and receive bell
    - Use "00" for quick double-zero entry
    - Use "⌫" to delete the last digit (long press to clear all)
    - Time displays as **HHh MMm SSs** (e.g., type "130" for 1 minute 30 seconds)
-2. Select a bell sound from the dropdown menu
+2. Select a bell sound from the dropdown menu (tap "Preview" to test the sound)
 3. Tap "Start" to begin the interval timer
 4. The countdown displays remaining time in HH:MM:SS format
 5. The bell will ring at each interval and restart automatically
@@ -54,7 +54,8 @@ IntervalBell/
 │   ├── src/
 │   │   └── main/
 │   │       ├── java/com/intervalbell/app/
-│   │       │   └── MainActivity.java
+│   │       │   ├── MainActivity.java
+│   │       │   └── BellTone.java
 │   │       ├── res/
 │   │       │   ├── layout/
 │   │       │   │   └── activity_main.xml

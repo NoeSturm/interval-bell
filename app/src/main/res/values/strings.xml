@@ -5,17 +5,56 @@
     <string name="start_button">Start</string>
     <string name="stop_button">Stop</string>
     <string name="select_sound">Select Bell Sound</string>
+    <string name="preview_button">Preview</string>
     <string name="time_remaining">Time Remaining: %1$s</string>
     <string name="bell_ringing">🔔 Bell Ringing!</string>
-    <string name="classic_bell">Classic Bell</string>
-    <string name="church_bell">Church Bell</string>
-    <string name="alarm_bell">Alarm Bell</string>
-    <string name="chime_bell">Chime Bell</string>
-    <string name="digital_bell">Digital Bell</string>
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="seconds_label">s</string>
     <string name="delete_button">⌫</string>
     <string name="double_zero">00</string>
     <string name="enter_interval_hint">Enter interval time</string>
+
+    <!-- Classic/Traditional Tones -->
+    <string name="tone_classic_bell">Classic Bell</string>
+    <string name="tone_church_bell">Church Bell</string>
+    <string name="tone_temple_bell">Temple Bell</string>
+    <string name="tone_chime">Chime</string>
+    <string name="tone_grandfather_clock">Grandfather Clock</string>
+
+    <!-- Digital/Modern Tones -->
+    <string name="tone_digital_beep">Digital Beep</string>
+    <string name="tone_notification">Notification</string>
+    <string name="tone_alarm">Alarm</string>
+    <string name="tone_sci_fi_alert">Sci-Fi Alert</string>
+    <string name="tone_radar_ping">Radar Ping</string>
+
+    <!-- Musical Tones -->
+    <string name="tone_piano_chord">Piano Chord</string>
+    <string name="tone_xylophone">Xylophone</string>
+    <string name="tone_harp">Harp</string>
+    <string name="tone_music_box">Music Box</string>
+
+    <!-- Nature Tones -->
+    <string name="tone_bird_chirp">Bird Chirp</string>
+    <string name="tone_water_drop">Water Drop</string>
+
+    <!-- Funny/Fun Tones -->
+    <string name="tone_duck_quack">Duck Quack</string>
+    <string name="tone_robot_beep">Robot Beep</string>
+    <string name="tone_doorbell">Doorbell</string>
+    <string name="tone_game_over">Game Over</string>
+    <string name="tone_celebration">Celebration</string>
+    <string name="tone_spaceship">Spaceship</string>
+    <string name="tone_submarine">Submarine</string>
+    <string name="tone_magic_wand">Magic Wand</string>
+    <string name="tone_cow_bell">Cow Bell</string>
+    <string name="tone_boxing_bell">Boxing Bell</string>
+
+    <!-- Legacy strings (kept for backward compatibility) -->
+    <string name="classic_bell">Classic Bell</string>
+    <string name="church_bell">Church Bell</string>
+    <string name="alarm_bell">Alarm Bell</string>
+    <string name="chime_bell">Chime Bell</string>
+    <string name="digital_bell">Digital Bell</string>
 </resources>
