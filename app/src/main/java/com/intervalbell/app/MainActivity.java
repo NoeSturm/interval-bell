@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private Button startButton;
     private Button stopButton;
     private TextView timerText;
+    private TextView statusText;
     private CountDownTimer countDownTimer;
     private boolean isRunning = false;
     private ToneGenerator toneGen;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         stopButton = findViewById(R.id.stopButton);
         timerText = findViewById(R.id.timerText);
+        statusText = findViewById(R.id.statusText);
 
         // create a tone generator for the "alarm" stream at 100% volume
         toneGen = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
@@ -81,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerText.setText(String.valueOf(millisUntilFinished / 1000) + "s");
+                // Hide the bell status after first tick of new interval
+                if (statusText.getVisibility() == View.VISIBLE) {
+                    statusText.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -100,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
         timerText.setText("0s");
+        statusText.setVisibility(View.INVISIBLE);
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
         intervalInput.setEnabled(true);
@@ -108,8 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void playSound() {
         try {
-            // Beep for 150ms
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 150); 
+            // Show bell ringing status
+            statusText.setVisibility(View.VISIBLE);
+            // Beep for 500ms for a more noticeable bell sound
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 500); 
         } catch (Exception e) {
             e.printStackTrace();
         }
